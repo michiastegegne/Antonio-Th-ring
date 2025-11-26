@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet" />
 
-    <style> 
+    <style>
         :root {
             --bg: #f4f4f5;
             --surface: #ffffff;
@@ -40,41 +40,38 @@
 
         body {
             font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #e5e7eb 0, #f4f4f5 50%, #e5e7eb 100%);
+            background: radial-gradient(circle at 25% 10%, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0) 50%),
+                linear-gradient(180deg, #f9fafc 0%, #eef1f8 55%, #e3e6f2 100%);
             color: var(--text-main);
             -webkit-font-smoothing: antialiased;
+            min-height: 100%;
         }
 
         .page {
             min-height: 100vh;
-            padding: 24px 16px 40px;
-            display: flex;
-            justify-content: center;
+            padding: 0;
+            background: transparent;
         }
 
         .shell {
             width: 100%;
-            max-width: 960px;
-            background: var(--surface);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-soft);
-            padding: 20px 18px 24px;
+            max-width: none;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            padding: 32px 20px 48px;
         }
 
         @media (min-width: 900px) {
-            .page {
-                padding: 40px 24px 48px;
-            }
             .shell {
-                padding: 24px 32px 28px;
+                padding: 48px 48px 60px;
             }
         }
 
         header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             gap: 12px;
             margin-bottom: 24px;
         }
@@ -95,10 +92,12 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--accent);
+            line-height: 1;
+            text-align: center;
         }
 
         .brand-meta {
@@ -118,108 +117,8 @@
             color: var(--text-soft);
         }
 
-        nav {
-            display: flex;
-            gap: 6px;
-            padding: 4px;
-            border-radius: var(--radius-pill);
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-        }
-
-        nav a {
-            font-size: 0.8rem;
-            padding: 6px 12px;
-            border-radius: var(--radius-pill);
-            text-decoration: none;
-            color: var(--text-soft);
-            transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-            white-space: nowrap;
-        }
-
-        nav a:hover {
-            background: #e5e7eb;
-            color: var(--text-main);
-            transform: translateY(-1px);
-        }
-
-        nav a.primary-link {
-            background: var(--accent-soft);
-            color: var(--text-main);
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--accent);
-            font-weight: 500;
-        }
-
         .theme-toggle {
-            font-size: 0.8rem;
-            padding: 6px 12px;
-            border-radius: var(--radius-pill);
-            border: 1px solid #e5e7eb;
-            background: #111827;
-            color: #f9fafb;
-            cursor: pointer;
-            transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-            white-space: nowrap;
-        }
-
-        .theme-toggle:hover {
-            background: #020617;
-            border-color: #0f172a;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25);
-        }
-
-        /* Dark-Mode-Variablen / Overrides */
-        body.dark {
-            --bg: #020617;
-            --surface: #020617;
-            --text-main: #f9fafb;
-            --text-soft: #9ca3af;
-            --accent: #eab308;
-            --accent-soft: rgba(234, 179, 8, 0.12);
-            --border: #1f2937;
-        }
-
-        body.dark {
-            background: radial-gradient(circle at top, #020617 0, #020617 50%, #020617 100%);
-        }
-
-        body.dark .shell {
-            background: #020617;
-            border-color: #1f2937;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        body.dark .hero-card,
-        body.dark .mini-card {
-            background: #020617;
-            border-color: #1f2937;
-        }
-
-        body.dark nav {
-            background: #020617;
-            border-color: #1f2937;
-        }
-
-        body.dark .gallery-item {
-            background: #020617;
-            border-color: #1f2937;
-        }
-
-        body.dark footer {
-            border-color: #1f2937;
-        }
-
-        body.dark .theme-toggle {
-            background: #f9fafb;
-            color: #111827;
-            border-color: #e5e7eb;
-        }
-
-        body.dark .theme-toggle:hover {
-            background: #e5e7eb;
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.25);
+            display: none;
         }
 
         @media (max-width: 640px) {
@@ -227,29 +126,13 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-
-            nav {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            nav a {
-                flex: 1;
-                text-align: center;
-            }
         }
 
         .main-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1fr);
             gap: 20px;
             margin-bottom: 24px;
-        }
-
-        @media (max-width: 900px) {
-            .main-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
         }
 
         .hero-card {
@@ -315,99 +198,15 @@
             border-radius: var(--radius-pill);
             border: 1px solid #e5e7eb;
             background: #ffffff;
-        }
-
-        .hero-actions {
-            margin-top: 18px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .btn {
-            border-radius: var(--radius-pill);
-            padding: 9px 16px;
-            font-size: 0.85rem;
-            border: 1px solid #e5e7eb;
-            background: #ffffff;
-            color: var(--text-main);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #facc15, #eab308);
-            color: #111827;
-            border-color: #eab308;
-            font-weight: 600;
-            box-shadow: 0 12px 24px rgba(234, 179, 8, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 16px 32px rgba(234, 179, 8, 0.35);
-        }
-
-        .btn-secondary:hover {
-            background: #f3f4f6;
-            transform: translateY(-1px);
-        }
-
-        .btn-icon {
-            font-size: 1.1rem;
-        }
-
-        .side-card {
-            border-radius: var(--radius-lg);
-            padding: 16px 16px 14px;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-        }
-
-        .profile-header {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .avatar {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            border: 1px solid #e5e7eb;
-            background: #f9fafb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1rem;
             color: var(--text-main);
         }
 
-        .profile-name {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        .profile-role {
-            font-size: 0.82rem;
-            color: var(--text-soft);
-        }
-
-        .profile-info {
-            margin-top: 8px;
-            font-size: 0.8rem;
-            color: var(--text-soft);
-        }
-
-        .profile-info strong {
-            color: var(--text-main);
-            font-weight: 500;
+        @media (prefers-color-scheme: dark) {
+            .meta-pill {
+                border-color: rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.1);
+                color: #f5f6fb;
+            }
         }
 
         .section {
@@ -479,6 +278,23 @@
             background: rgba(17, 24, 39, 0.9);
             color: #f9fafb;
             font-size: 0.7rem;
+        }
+
+        .shell,
+        .hero-card,
+        .section,
+        footer,
+        .gallery-item {
+            transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body:not(.ready) .shell,
+        body:not(.ready) .hero-card,
+        body:not(.ready) .section,
+        body:not(.ready) footer,
+        body:not(.ready) .gallery-item {
+            opacity: 0;
+            transform: translateY(40px);
         }
 
         .simple-grid {
@@ -557,6 +373,8 @@
         #portfolio, #profil, #kontakt {
             scroll-margin-top: 80px;
         }
+
+        /* Lightbox */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -622,6 +440,43 @@
             transform: translateY(-1px);
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
         }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111829;
+                --surface: #161f33;
+                --text-main: #f5f6fb;
+                --text-soft: #bdc6d8;
+                --accent: #facc15;
+                --accent-soft: rgba(250, 204, 21, 0.18);
+                --border: #2d3850;
+            }
+
+            body {
+                background: radial-gradient(circle at 25% 5%, #223458 0, #131c33 55%, #0f1526 100%);
+            }
+
+            .shell {
+                background: #161f33;
+                border-color: #2d3850;
+                box-shadow: 0 18px 32px rgba(0, 0, 0, 0.55);
+            }
+
+            .hero-card,
+            .mini-card {
+                background: #1b243a;
+                border-color: #34415c;
+            }
+
+            .gallery-item {
+                background: #1a2338;
+                border-color: #34415c;
+            }
+
+            footer {
+                border-color: #2d3850;
+            }
+        }
     </style>
 </head>
 <body>
@@ -635,9 +490,6 @@
                     <div class="brand-role">Angehender Bauingenieur / Architekt</div>
                 </div>
             </div>
-            <nav>
-                <button id="theme-toggle" class="theme-toggle" type="button">Dark Mode</button>
-            </nav>
         </header>
 
         <div class="main-grid">
@@ -648,19 +500,18 @@
                         Lehrstelle ab August 2026 gesucht
                     </div>
                     <h1 id="hero-title" class="hero-title">
-                        Zeichnungen und Ideen
-                        <span class="accent">für Bau &amp; Architektur.</span>
+                        Zeichnungen und Ideen für <span class="accent">Bau &amp; Architektur.</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Ich heisse <strong>Antonio Thüring</strong> und besuche die 10.Klasse. 
-                        Mein Ziel ist eine <strong>Lehrstelle als Zeichner EFZ, Fachrichtung Ingenieurbau oder Architektur</strong>. 
+                        Ich heisse <strong>Antonio Thüring</strong> und besuche die 10.Klasse.
+                        Mein Ziel ist eine <strong>Lehrstelle als Zeichner EFZ, Fachrichtung Ingenieurbau oder Architektur</strong>.
                         Auf dieser Seite sehen Sie eine kompakte Auswahl meiner Zeichnungen und Schulprojekte.
                     </p>
 
                     <div class="hero-meta">
                         <span class="meta-pill">Grundrisse &amp; Schnitte</span>
                         <span class="meta-pill">Fassadenstudien</span>
-                        <span class="meta-pill">Brückenkonzepte</span>
+                        <span class="meta-pill">Bodenpläne</span>
                     </div>
                 </section>
             </main>
@@ -737,7 +588,7 @@
                     <div class="mini-title">Kontaktangaben</div>
                     <p class="mini-meta">
                         E-Mail: <strong>antoniothuering@bluewin.com</strong><br />
-                        Telefon: <strong>+41 79 000 00 00</strong><br />
+                        Telefon: <strong>+41 76 308 33 07</strong><br />
                         Wohnort: Ettingen, Basel-Landschaft
                     </p>
                 </article>
@@ -757,12 +608,12 @@
             <div class="footer-links">
                 <span>Aktualisiert: 2025</span>
                 <span>•</span>
-                <a href="#portfolio">Zu den Zeichnungen</a>
+                <a href="https://michiastegegne.com" target="_blank" rel="noopener">Made by Michias Tegegne</a>
             </div>
         </footer>
     </div>
 </div>
-</body>
+
 <div id="lightbox" class="lightbox">
     <div class="lightbox-content">
         <button id="lightbox-close" class="lightbox-close" type="button">Schliessen</button>
@@ -773,6 +624,20 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (window.location.hash) {
+            const cleanUrl = window.location.pathname + window.location.search;
+            window.history.replaceState(null, '', cleanUrl);
+        }
+        window.scrollTo(0, 0);
+        requestAnimationFrame(function () {
+            window.scrollTo(0, 0);
+        });
+        requestAnimationFrame(function () {
+            document.body.classList.add('ready');
+        });
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCaption = document.getElementById('lightbox-caption');
@@ -816,15 +681,7 @@
                 closeLightbox();
             }
         });
-
-        const themeToggle = document.getElementById('theme-toggle');
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', function () {
-                const isDark = document.body.classList.toggle('dark');
-                themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-            });
-        }
     });
 </script>
+</body>
 </html>
