@@ -15,7 +15,7 @@
         :root {
             --bg: #f4f4f5;
             --surface: #ffffff;
-            --text-main: #111827;
+            --text-main: #222652;
             --text-soft: #6b7280;
             --accent: #eab308;
             --accent-soft: #fef9c3;
@@ -414,6 +414,50 @@
             border-radius: 12px;
         }
 
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #111827;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+            transition: background var(--transition-fast), transform var(--transition-fast);
+        }
+
+        .lightbox-nav:hover {
+            background: #f3f4f6;
+            transform: translateY(calc(-50% - 2px));
+        }
+
+        .lightbox-nav.prev {
+            left: -14px;
+        }
+
+        .lightbox-nav.next {
+            right: -14px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 14px;
+            background: rgba(17, 24, 39, 0.8);
+            color: #f9fafb;
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 0.75rem;
+            letter-spacing: 0.04em;
+        }
+
         .lightbox-caption {
             margin-top: 8px;
             font-size: 0.8rem;
@@ -523,21 +567,9 @@
                 <span class="section-subtitle">Ausgewählte Zeichnungen</span>
             </div>
             <div class="gallery-grid">
-                <figure class="gallery-item">
-                    <img src="bilder/grundriss-wohnhaus.jpg" alt="Grundriss eines Wohnhauses – Handzeichnung" />
-                    <figcaption class="gallery-label">Grundriss Wohnhaus</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                    <img src="bilder/fassade-stadt.jpg" alt="Fassadenstudie für ein Wohngebäude" />
-                    <figcaption class="gallery-label">Fassadenstudie</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                    <img src="bilder/bruecke-skizze.jpg" alt="Skizze einer Brückenkonstruktion" />
-                    <figcaption class="gallery-label">Brückenkonzept</figcaption>
-                </figure>
-                <figure class="gallery-item">
-                    <img src="bilder/perspektive-innenraum.jpg" alt="Perspektivische Innenraumzeichnung" />
-                    <figcaption class="gallery-label">Innenraum</figcaption>
+                <figure class="gallery-item" data-images="bilder/1.png,bilder/2.png,bilder/3.png,bilder/4.png">
+                    <img src="bilder/1.png" alt="Grundrisse und Studien – Handzeichnungen" />
+                    <figcaption class="gallery-label">Projekt: Wohnhaus-Studien</figcaption>
                 </figure>
                 <figure class="gallery-item">
                     <img src="bilder/stadtmodell.jpg" alt="Skizze eines kleinen Stadtquartiers" />
@@ -587,7 +619,7 @@
                 <article class="mini-card">
                     <div class="mini-title">Kontaktangaben</div>
                     <p class="mini-meta">
-                        E-Mail: <a href="mailto:antoniothuering@bluewin.com">antoniothuering@bluewin.com</a><br />
+                        E-Mail: <a href="mailto:info@antoniothuering.ch">info@antoniothuering.ch</a><br />
                         Telefon: <strong>+41 76 308 33 07</strong><br />
                         Wohnort: Ettingen, Basel-Landschaft
                     </p>
@@ -616,9 +648,12 @@
 
 <div id="lightbox" class="lightbox">
     <div class="lightbox-content">
+        <button class="lightbox-nav prev" type="button" aria-label="Vorheriges Bild">‹</button>
+        <button class="lightbox-nav next" type="button" aria-label="Nächstes Bild">›</button>
         <button id="lightbox-close" class="lightbox-close" type="button">Schliessen</button>
         <img id="lightbox-img" class="lightbox-image" src="" alt="" />
         <div id="lightbox-caption" class="lightbox-caption"></div>
+        <div id="lightbox-counter" class="lightbox-counter"></div>
     </div>
 </div>
 
@@ -642,17 +677,48 @@
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCaption = document.getElementById('lightbox-caption');
         const closeBtn = document.getElementById('lightbox-close');
+        const prevBtn = document.querySelector('.lightbox-nav.prev');
+        const nextBtn = document.querySelector('.lightbox-nav.next');
+        const counter = document.getElementById('lightbox-counter');
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        let currentIndex = 0;
+        let currentSlides = [];
 
-        function openLightbox(imgElement) {
-            const src = imgElement.getAttribute('src');
-            const alt = imgElement.getAttribute('alt') || '';
-            const figure = imgElement.closest('figure');
-            const label = figure ? figure.querySelector('.gallery-label') : null;
-            const caption = label ? label.textContent : alt;
+        function parseSlides(figure) {
+            const imgElement = figure.querySelector('img');
+            const baseAlt = imgElement.getAttribute('alt') || '';
+            const label = figure.querySelector('.gallery-label') ? figure.querySelector('.gallery-label').textContent : baseAlt;
+            const dataImages = figure.dataset.images;
 
-            lightboxImg.src = src;
-            lightboxImg.alt = alt;
+            if (dataImages) {
+                const paths = dataImages.split(',').map(function (p) { return p.trim(); }).filter(Boolean);
+                return paths.map(function (src, i) {
+                    return { src: src, alt: `${label} – Bild ${i + 1}` };
+                });
+            }
+
+            return [{ src: imgElement.getAttribute('src'), alt: baseAlt || label }];
+        }
+
+        function showImage(index) {
+            const slide = currentSlides[index];
+            if (!slide) return;
+            const figure = galleryItems.find(function (item) {
+                return item.dataset.images?.includes(slide.src) || item.querySelector('img').getAttribute('src') === slide.src;
+            });
+            const label = figure && figure.querySelector('.gallery-label') ? figure.querySelector('.gallery-label').textContent : slide.alt;
+            const caption = label || slide.alt;
+
+            lightboxImg.src = slide.src;
+            lightboxImg.alt = slide.alt || caption;
             lightboxCaption.textContent = caption;
+            counter.textContent = `${index + 1} / ${currentSlides.length}`;
+        }
+
+        function openLightbox(index, slides) {
+            currentSlides = slides;
+            currentIndex = index;
+            showImage(currentIndex);
 
             lightbox.classList.add('open');
         }
@@ -661,14 +727,30 @@
             lightbox.classList.remove('open');
         }
 
-        document.querySelectorAll('.gallery-item img').forEach(function (img) {
+        function showNext() {
+            if (!currentSlides.length) return;
+            currentIndex = (currentIndex + 1) % currentSlides.length;
+            showImage(currentIndex);
+        }
+
+        function showPrev() {
+            if (!currentSlides.length) return;
+            currentIndex = (currentIndex - 1 + currentSlides.length) % currentSlides.length;
+            showImage(currentIndex);
+        }
+
+        galleryItems.forEach(function (figure) {
+            const img = figure.querySelector('img');
+            const slides = parseSlides(figure);
             img.style.cursor = 'zoom-in';
             img.addEventListener('click', function () {
-                openLightbox(img);
+                openLightbox(0, slides);
             });
         });
 
         closeBtn.addEventListener('click', closeLightbox);
+        nextBtn.addEventListener('click', showNext);
+        prevBtn.addEventListener('click', showPrev);
 
         lightbox.addEventListener('click', function (event) {
             if (event.target === lightbox) {
@@ -679,8 +761,28 @@
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeLightbox();
+            } else if (event.key === 'ArrowRight') {
+                showNext();
+            } else if (event.key === 'ArrowLeft') {
+                showPrev();
             }
         });
+
+        // Optional scroll navigation inside the lightbox
+        let scrollLock = false;
+        lightbox.addEventListener('wheel', function (event) {
+            if (!lightbox.classList.contains('open')) return;
+            if (scrollLock) return;
+            scrollLock = true;
+            if (event.deltaY > 0) {
+                showNext();
+            } else if (event.deltaY < 0) {
+                showPrev();
+            }
+            setTimeout(function () {
+                scrollLock = false;
+            }, 200);
+        }, { passive: true });
     });
 </script>
 </body>
