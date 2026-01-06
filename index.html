@@ -255,8 +255,15 @@
             gap: 10px;
         }
 
-        .gallery-group {
+        .gallery-collection {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
             margin-top: 14px;
+        }
+
+        .gallery-group {
+            margin-top: 0;
             padding: 12px 12px 10px;
             border: 1px solid #e5e7eb;
             border-radius: var(--radius-lg);
@@ -289,6 +296,10 @@
         @media (max-width: 700px) {
             .gallery-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .gallery-collection {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -613,8 +624,8 @@
 
                     <div class="hero-meta">
                         <a class="meta-pill" href="#wohnhaus-grundriss">Wohnhaus-Grundriss</a>
-                        <a class="meta-pill" href="#quartier-studie">Quartier-Studie</a>
-                        <a class="meta-pill" href="#betondetail">Betondetail</a>
+                        <a class="meta-pill" href="#landschaftsstudien">Landschaftsstudien</a>
+                        <a class="meta-pill" href="#fassadenstudien">Fassadenstudien</a>
                     </div>
                 </section>
             </main>
@@ -625,33 +636,45 @@
                 <h2 class="section-title">Portfolio</h2>
                 <span class="section-subtitle">Ausgewählte Zeichnungen</span>
             </div>
-            <div class="gallery-group" id="wohnhaus-grundriss">
-                <div class="gallery-heading">
-                    <span>Wohnhaus-Grundriss</span>
-                    <small>Grundrisse &amp; Schnitte</small>
+            <div class="gallery-collection">
+                <div class="gallery-group" id="wohnhaus-grundriss">
+                    <div class="gallery-heading">
+                        <span>Wohnhaus-Grundriss</span>
+                        <small>Grundrisse &amp; Schnitte</small>
+                    </div>
+                    <div class="gallery-grid">
+                        <figure class="gallery-item" data-images="Bilder/Wohnhaus grundriss/1.png,Bilder/Wohnhaus grundriss/2.png,Bilder/Wohnhaus grundriss/3.png,Bilder/Wohnhaus grundriss/4.png">
+                            <img src="Bilder/Wohnhaus grundriss/1.png" alt="Grundrisse und Studien – Handzeichnungen" />
+                            <figcaption class="gallery-label">Projekt: Wohnhaus-Grundriss</figcaption>
+                        </figure>
+                    </div>
                 </div>
-                <div class="gallery-grid">
-                    <figure class="gallery-item" data-images="Bilder/1.png,Bilder/2.png,Bilder/3.png,Bilder/4.png">
-                        <img src="Bilder/1.png" alt="Grundrisse und Studien – Handzeichnungen" />
-                        <figcaption class="gallery-label">Projekt: Wohnhaus-Grundriss</figcaption>
-                    </figure>
-                </div>
-            </div>
 
-            <div class="gallery-group" id="quartier-studie">
-                <div class="gallery-heading">
-                    <span>Quartier-Studie</span>
-                    <small>Aktuell ohne Bilder</small>
+                <div class="gallery-group" id="landschaftsstudien">
+                    <div class="gallery-heading">
+                        <span>Landschaftsstudien</span>
+                        <small>Skizzen zu Atmosphäre &amp; Topografie</small>
+                    </div>
+                    <div class="gallery-grid">
+                        <figure class="gallery-item" data-images="Bilder/Landschaft/5.png,Bilder/Landschaft/6.png">
+                            <img src="Bilder/Landschaft/5.png" alt="Landschaftsskizzen – Freihandstudien" />
+                            <figcaption class="gallery-label">Serie: Landschaftsskizzen</figcaption>
+                        </figure>
+                    </div>
                 </div>
-                <div class="empty-gallery">Bilder folgen – diese Galerie ist noch leer.</div>
-            </div>
 
-            <div class="gallery-group" id="betondetail">
-                <div class="gallery-heading">
-                    <span>Betondetail</span>
-                    <small>Aktuell ohne Bilder</small>
+                <div class="gallery-group" id="fassadenstudien">
+                    <div class="gallery-heading">
+                        <span>Fassadenstudien</span>
+                        <small>Gebäudeansichten &amp; Proportionen</small>
+                    </div>
+                    <div class="gallery-grid">
+                        <figure class="gallery-item" data-images="Bilder/Gebäude/7.png,Bilder/Gebäude/8.png,Bilder/Gebäude/9.png">
+                            <img src="Bilder/Gebäude/7.png" alt="Gebäudeansichten – Fassadenskizzen" />
+                            <figcaption class="gallery-label">Serie: Gebäudeaussenansichten</figcaption>
+                        </figure>
+                    </div>
                 </div>
-                <div class="empty-gallery">Bilder folgen – diese Galerie ist noch leer.</div>
             </div>
         </section>
 
